@@ -1,0 +1,5 @@
+fastapi
+uvicorn
+elasticsearch==7.10.1
+jinja2
+python-multipart

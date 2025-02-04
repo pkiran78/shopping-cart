@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/styles.css">
+    <title>Shopping</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Shopping Items</h2>
+        <form action="/shopping/add-item" method="post">
+            <label for="name">Item Name:</label>
+            <input type="text" id="name" name="name" required>
+            <label for="description">Description:</label>
+            <input type="text" id="description" name="description" required>
+            <label for="price">Price:</label>
+            <input type="number" id="price" name="price" required>
+            <button type="submit">Add Item</button>
+        </form>
+        <h3>Available Items</h3>
+        {% if items %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                <tr>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.description }}</td>
+                    <td>{{ item.price }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>No items available. Here are some sample items:</p>
+        <ul>
+            <li>Sample Item 1 - Description 1 - $10.00</li>
+            <li>Sample Item 2 - Description 2 - $20.00</li>
+            <li>Sample Item 3 - Description 3 - $30.00</li>
+        </ul>
+        {% endif %}
+    </div>
+</body>
+</html>
