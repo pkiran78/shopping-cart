@@ -1,7 +1,9 @@
 name: Deploy FastAPI Application
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
   build-and-deploy:
@@ -13,6 +15,11 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
+
+      - name: Install Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
 
       - name: Cache Docker layers
         uses: actions/cache@v2
@@ -35,5 +42,5 @@ jobs:
 
       - name: Deploy with Docker Compose
         run: |
-          docker-compose down
-          docker-compose up -d
+          docker compose down
+          docker compose up -d
