@@ -77,3 +77,10 @@ format:
 	@echo "Formating the code"
 	@black -l 100 .
 	@echo ""
+
+deploy:
+	@echo ""
+	@echo "--------------------------------------------------------------------"
+	@echo "Deploying the app"
+	@uvicorn app.main:app --reload
+	@echo ""
