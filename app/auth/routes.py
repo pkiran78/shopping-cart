@@ -7,16 +7,20 @@ from app.database import es
 
 templates = Jinja2Templates(directory="app/templates")
 
+
 class User(BaseModel):
     username: str
     email: str
     password: str
 
+
 auth_router = APIRouter()
+
 
 @auth_router.get("/register")
 async def get_register(request: Request):
     return templates.TemplateResponse("register.html", {"request": request})
+
 
 @auth_router.post("/register")
 async def register(user: User):
@@ -25,15 +29,18 @@ async def register(user: User):
     es.index(index="users", id=user.username, body=user.dict())
     return {"message": "User registered successfully"}
 
+
 @auth_router.get("/list-users")
 async def list_users(request: Request):
     users = es.search(index="users", body={"query": {"match_all": {}}})
     user_list = [user["_source"] for user in users["hits"]["hits"]]
     return templates.TemplateResponse("list_users.html", {"request": request, "users": user_list})
 
+
 @auth_router.get("/login")
 async def get_login(request: Request):
     return templates.TemplateResponse("login.html", {"request": request})
+
 
 @auth_router.post("/login")
 async def login(username: str = Form(...), password: str = Form(...)):

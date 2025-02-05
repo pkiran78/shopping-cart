@@ -18,7 +18,8 @@ import logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-es = Elasticsearch([{'host': 'elasticsearch', 'port': 9200, 'scheme': 'http'}])
+es = Elasticsearch([{"host": "elasticsearch", "port": 9200, "scheme": "http"}])
+
 
 def create_index(index_name):
     if not es.indices.exists(index=index_name):

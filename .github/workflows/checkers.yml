@@ -1,0 +1,40 @@
+name: Lint Code Base
+
+on: [push, pull_request]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          make dependencies
+
+      - name: Run flake8
+        run: |
+          make lint
+
+      - name: Run Bandit
+        run: | 
+          make bandit
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and push Docker image
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/fastapi-microservice:latest .
+          docker push ${{ secrets.DOCKER_USERNAME }}/fastapi-microservice:latest
+      
