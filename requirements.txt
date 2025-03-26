@@ -6,3 +6,4 @@ python-multipart
 flake8
 bandit
 black
+mkdocs

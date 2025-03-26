@@ -1,5 +1,13 @@
-# Execute using:
+# Install dependencies
+pip install -r requirements.txt
 
+# To check API docs
+make doc
+
+# Document can be viewed on URL
+http://localhost:8001/
+
+# Execute using:
 uvicorn app.main:app --reload
 
 # On browser:

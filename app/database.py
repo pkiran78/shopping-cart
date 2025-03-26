@@ -22,6 +22,13 @@ es = Elasticsearch([{"host": "elasticsearch", "port": 9200, "scheme": "http"}])
 
 
 def create_index(index_name):
+    """
+    Description: Create an index
+
+    Args: index_name ('str'): Name of index
+
+    Returns: None
+    """
     if not es.indices.exists(index=index_name):
         es.indices.create(index=index_name)
         logger.info(f"Created index: {index_name}")
