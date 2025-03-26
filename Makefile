@@ -24,6 +24,7 @@ help:
 	@echo "--------------------------------------------------------------------"
 	@echo " image                build docker container image"
 	@echo " distribute           Distribute the container image to artifactory"
+	@echo " doc                  Host documentation"
 	@echo ""
 
 clean:
@@ -76,4 +77,18 @@ format:
 	@echo "--------------------------------------------------------------------"
 	@echo "Formating the code"
 	@black -l 100 .
+	@echo ""
+
+deploy:
+	@echo ""
+	@echo "--------------------------------------------------------------------"
+	@echo "Deploying the app"
+	@uvicorn app.main:app --reload
+	@echo ""
+
+doc:
+	@echo ""
+	@echo "--------------------------------------------------------------------"
+	@echo "Serving Documentation Server"
+	@mkdocs serve -a localhost:8001
 	@echo ""
